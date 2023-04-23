@@ -4,6 +4,6 @@ import { IVolume } from "./IVolume";
 
 export interface ILocation {
   name: string;
-  volumes: IVolume[];
+  volumes?: IVolume[];
   description: string[];
 }
