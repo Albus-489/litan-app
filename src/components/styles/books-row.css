@@ -1,0 +1,33 @@
+.books-row{
+    display: flex;
+    margin: 2% 2%;
+    flex-wrap: wrap;
+}
+
+.card{
+    margin: 3% 0 0 0 ;
+    margin-right: 5%;
+}
+
+
+#book-image{
+    width: 200px;
+    height: 300px;
+}
+
+.addNewBAbox{
+    width: 201.6px;
+    height: 403.2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.addNewBAtext{
+    font-size: large;
+    color: rgba(67, 67, 255, 0.875);
+    cursor: pointer;
+    transition: color 0.4s ease;
+}
+.addNewBAtext:hover{
+    color: rgb(45, 104, 254);
+}
