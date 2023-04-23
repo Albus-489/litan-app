@@ -24,7 +24,7 @@ const BooksRow: React.FC<BooksRowProps> = ({ books }) => {
   return (
     <>
       {isContentVisible ? (
-        <div className="books-row">
+        <div className="books-row container">
           {bookanData.map((book, index) => (
             <div className="card bg-dark" key={index}>
               <img
