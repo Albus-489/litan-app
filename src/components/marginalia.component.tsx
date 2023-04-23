@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { createBook } from "./funcs/createBook";
 import { IBook } from "./models/interfaces/IBook";
 import { Book } from "./models/Books";
+import "./styles/marginalia.css";
+import VolumeComponent from "./volume.component";
 const boockCover = require("./images/bookCover.png");
 
 type marginaliaProps = {
@@ -20,15 +22,27 @@ const Marginalia: React.FC<marginaliaProps> = ({
   return (
     <div className="marginalia mt-5">
       <div className="container">
-        <button onClick={handleClose} className="btn btn-danger btn-lg">
-          Close{" "}
-        </button>
+        <h2>
+          <a onClick={handleClose} className="baBackLink">
+            &#8592; Back{" "}
+          </a>
+        </h2>
         <h1>
           <span>
             Analysis of "{analysis.name}" {analysis.author}
           </span>
-          <p>{analysis.id}</p>
         </h1>
+
+        <div id="analysisContent">
+          <div id="mainSummary">
+            {analysis.summary.map((summary) => summary.notes)}
+          </div>
+          <div id="volumes" className="row justify-content-center mt-4">
+            {analysis.volumes.map((volume, index) => (
+              <VolumeComponent volume={volume} key={index} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
