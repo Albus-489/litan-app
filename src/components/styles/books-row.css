@@ -1,6 +1,6 @@
 .books-row{
     display: flex;
-    margin: 2% 2%;
+    margin: 2% 1%;
     flex-wrap: wrap;
 }
 

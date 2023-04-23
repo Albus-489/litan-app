@@ -1,0 +1,52 @@
+.baBackLink{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#analysisContent{
+}
+#volumes{
+}
+
+.volume{
+    border: 3px solid rgba(170, 178, 170, 0.103);
+    border-radius: 8px;
+    background-color: rgb(35, 36, 37);
+}
+
+.volHeader{
+    cursor: pointer;
+}
+
+.volName{
+    font-size: large;
+    font-style: italic;
+}
+
+.hideShowArrow{
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* стандарт */;
+}
+
+#mainSummary{
+    border-top: 1px solid wheat;
+    padding-top: 2%;
+}
+#simpleSummary{}
+
+.noteDate{
+    justify-content: flex-end;
+    align-items: end;
+    color: rgba(251, 248, 248, 0.442);
+}
+
+#characters{
+
+}
+
+.character{
+
+}
