@@ -4,6 +4,8 @@ import { IBook } from "./models/interfaces/IBook";
 import { Book } from "./models/Books";
 import "./styles/marginalia.css";
 import VolumeComponent from "./volume.component";
+import { Button } from "react-bootstrap";
+import { addVolume } from "./funcs/bookanFuncs/volumes.helper";
 const boockCover = require("./images/bookCover.png");
 
 type marginaliaProps = {
@@ -35,12 +37,23 @@ const Marginalia: React.FC<marginaliaProps> = ({
 
         <div id="analysisContent">
           <div id="mainSummary">
-            {analysis.summary.map((summary) => summary.notes)}
+            {analysis.summary.map((summary) => (
+              <p>{summary.notes}</p>
+            ))}
           </div>
           <div id="volumes" className="row justify-content-center mt-4">
-            {analysis.volumes.map((volume, index) => (
-              <VolumeComponent volume={volume} key={index} />
-            ))}
+            {analysis ? (
+              analysis.volumes.map((volume, index) => (
+                <VolumeComponent volume={volume} key={index} />
+              ))
+            ) : (
+              <div>''</div>
+            )}
+            <div className="addVolume text-center">
+              <a className="baBackLink" onClick={() => console.log("New vol")}>
+                + new +
+              </a>
+            </div>
           </div>
         </div>
       </div>
