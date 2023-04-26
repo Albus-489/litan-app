@@ -1,50 +1,63 @@
-import React, { useState } from "react";
-import { Book } from "./models/Books";
+import React, { useEffect, useState } from "react";
 import { IBook } from "./models/interfaces/IBook";
 import axios from "axios";
 import { fetchLitans } from "./funcs/axios/fetchLitans";
 import { Form } from "react-bootstrap";
 
-type ModalProps = {
+type ModalUpdateProps = {
   books: IBook[];
+  dataToChange: IBook;
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>;
 };
 
-const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
-  const [book, setBook] = useState<{
+const ModalUpdateComponent: React.FC<ModalUpdateProps> = ({
+  books,
+  dataToChange,
+  setBooks,
+}) => {
+  const [data, setData] = useState<{
     name: string;
     author: string;
-    picture: string;
+    image: string;
   }>({
-    name: "",
-    author: "",
-    picture: "",
+    name: dataToChange.name,
+    author: dataToChange.author,
+    image: dataToChange.image,
   });
+
+  useEffect(() => {
+    setData({
+      name: dataToChange.name,
+      author: dataToChange.author,
+      image: dataToChange.image,
+    });
+  }, [dataToChange]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setBook((prevBook) => ({ ...prevBook, [name]: value }));
+    setData((prevData) => ({ ...prevData, [name]: value }));
     // console.log(book);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(book);
 
-    if (book.name.length < 1 || book.author.length < 1) {
+    if (data.name.length < 1 || data.author.length < 1) {
       alert("Fields must have a name and author");
       return;
     } else {
-      handleAddNewBA();
+      handleUpdate();
     }
   };
 
-  async function handleAddNewBA() {
+  async function handleUpdate() {
     try {
-      const ba = new Book(book.name, book.author, book.picture);
-      const res = await axios.post("http://localhost:8080/litans", ba);
+      const res = await axios.patch(
+        `http://localhost:8080/litans/${dataToChange._id}`,
+        data
+      );
+      // console.log(res);
       fetchLitans(books, setBooks);
-      console.log("Create new BA", res);
     } catch (error) {
       console.log(error);
     }
@@ -52,15 +65,15 @@ const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
   return (
     <div
       className="modal"
-      id="exampleModal"
+      id="updateBookModal"
       tabIndex={1}
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="modalUpdateLabel"
       aria-hidden="true"
     >
       <div className="modal-dialog">
         <div className="modal-content bg-dark">
           <div className="modal-header">
-            <h1 className="modal-title fs-5" id="exampleModalLabel">
+            <h1 className="modal-title fs-5" id="modalUpdateLabel">
               Litan creation
             </h1>
             <button
@@ -80,7 +93,7 @@ const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
                   type="text"
                   name="name"
                   placeholder="Book name"
-                  // value={book.name}
+                  value={data.name}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -91,18 +104,18 @@ const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
                   type="text"
                   name="author"
                   placeholder="Book author"
-                  // value={book.name}
+                  value={data.author}
                   onChange={handleChange}
                 />
               </Form.Group>
 
-              <Form.Group controlId="picture">
+              <Form.Group controlId="image">
                 {/* PICTURE IMAGE INPUT */}
                 <Form.Control
                   type="text"
-                  name="picture"
+                  name="image"
                   placeholder="Picture url"
-                  // value={book.name}
+                  value={data.image}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -116,7 +129,7 @@ const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
                 Close
               </button>
               <button type="submit" className="btn btn-primary">
-                Create
+                Update
               </button>
             </div>
           </Form>
@@ -126,4 +139,4 @@ const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
   );
 };
 
-export default ModalComponent;
+export default ModalUpdateComponent;
