@@ -3,7 +3,7 @@ import { ISummary } from "./ISummary";
 import { IVolume } from "./IVolume";
 
 export interface IBook {
-  id: number;
+  _id?: string;
   name: string;
   author: string;
   image: string;
