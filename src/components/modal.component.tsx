@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { createBook } from "./funcs/createBook";
 import { Book } from "./models/Books";
 import { IBook } from "./models/interfaces/IBook";
+import axios from "axios";
+import { fetchLitans } from "./funcs/axios/fetchLitans";
+import { Form } from "react-bootstrap";
 
 type ModalProps = {
   books: IBook[];
@@ -9,6 +12,39 @@ type ModalProps = {
 };
 
 const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
+  const [book, setBook] = useState<{ name: string; author: string }>({
+    name: "",
+    author: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setBook((prevBook) => ({ ...prevBook, [name]: value }));
+    // console.log(book);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(book);
+
+    if (book.name.length < 1 || book.author.length < 1) {
+      alert("Fields must have a name and author");
+      return;
+    } else {
+      handleAddNewBA();
+    }
+  };
+
+  async function handleAddNewBA() {
+    try {
+      const ba = new Book(book!.name!, book!.author!);
+      const res = await axios.post("http://localhost:8080/litans", ba);
+      fetchLitans(books, setBooks);
+      console.log("Create new BA", res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div
       className="modal"
@@ -21,7 +57,7 @@ const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
         <div className="modal-content bg-dark">
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="exampleModalLabel">
-              Modal title
+              Litan creation
             </h1>
             <button
               type="button"
@@ -30,23 +66,41 @@ const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
               aria-label="Close"
             ></button>
           </div>
-          <div className="modal-body">...</div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              onClick={() => createBook(new Book("Name"), books, setBooks)}
-              type="button"
-              className="btn btn-primary"
-            >
-              Create
-            </button>
-          </div>
+          <Form onSubmit={(e) => handleSubmit(e)}>
+            <div className="modal-body">
+              <Form.Group controlId="name">
+                <Form.Control
+                  className="mb-2"
+                  type="text"
+                  name="name"
+                  placeholder="Book name"
+                  // value={book.name}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="author">
+                <Form.Control
+                  type="text"
+                  name="author"
+                  placeholder="Book author"
+                  // value={book.name}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" className="btn btn-primary">
+                Create
+              </button>
+            </div>
+          </Form>
         </div>
       </div>
     </div>
