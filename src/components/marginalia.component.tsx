@@ -1,12 +1,7 @@
-import React, { useState } from "react";
-import { createBook } from "./funcs/createBook";
+import React from "react";
 import { IBook } from "./models/interfaces/IBook";
-import { Book } from "./models/Books";
 import "./styles/marginalia.css";
 import VolumeComponent from "./volume.component";
-import { Button } from "react-bootstrap";
-import { addVolume } from "./funcs/bookanFuncs/volumes.helper";
-const boockCover = require("./images/bookCover.png");
 
 type marginaliaProps = {
   setContentVisibility: React.Dispatch<React.SetStateAction<boolean>>;
