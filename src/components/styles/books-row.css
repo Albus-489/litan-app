@@ -29,5 +29,7 @@
     transition: color 0.4s ease;
 }
 .addNewBAtext:hover{
+    border-radius: 6px;
+    background-color: rgb(41, 39, 37);
     color: rgb(45, 104, 254);
 }
