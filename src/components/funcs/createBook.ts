@@ -5,11 +5,12 @@ export const createBook = (
   books: IBook[],
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>
 ): void => {
-  let tempBooks = [...books];
-  tempBooks.unshift(newBook);
-  console.log("This function is called!");
-  console.log("Temp => ", tempBooks);
+  fetch("../../data/test.json")
+    .then((response) => response.json())
+    .then((data) => {
+      // здесь вы можете редактировать содержимое файла data
+      console.log(data);
+    });
 
-  setBooks(tempBooks);
-  console.log("Original => ", books);
+  console.log("Creation");
 };
