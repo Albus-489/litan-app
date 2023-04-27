@@ -57,7 +57,7 @@ const ModalUpdateComponent: React.FC<ModalUpdateProps> = ({
         data
       );
       // console.log(res);
-      fetchLitans(books, setBooks);
+      fetchLitans(setBooks);
     } catch (error) {
       console.log(error);
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IBook } from "./models/interfaces/IBook";
 import "./styles/books-row.css";
 import BooksRow from "./books-row.component";
@@ -9,7 +9,7 @@ const BookAnalysisMainPage = () => {
   const [books, setBooks] = useState<IBook[]>([]);
 
   useEffect(() => {
-    fetchLitans(books, setBooks);
+    fetchLitans(setBooks);
   }, []);
 
   return (

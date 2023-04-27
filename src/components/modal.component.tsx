@@ -43,7 +43,7 @@ const ModalComponent: React.FC<ModalProps> = ({ books, setBooks }) => {
     try {
       const ba = new Book(book.name, book.author, book.picture);
       const res = await axios.post("http://localhost:8080/litans", ba);
-      fetchLitans(books, setBooks);
+      fetchLitans(setBooks);
       console.log("Create new BA", res);
     } catch (error) {
       console.log(error);
