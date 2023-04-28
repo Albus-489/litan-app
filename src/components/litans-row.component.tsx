@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IBook } from "./models/interfaces/IBook";
 import { Book } from "./models/Books";
-import Marginalia from "./marginalia.component";
+import Marginalia from "./litan-page.component";
 import ModalUpdateComponent from "./modal-update.component";
 import LitanCardComponent from "./litan-card.component";
 
