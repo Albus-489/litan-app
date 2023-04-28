@@ -3,6 +3,7 @@ import { IBook } from "./models/interfaces/IBook";
 import React from "react";
 import { handleEdit, handleOpen } from "./funcs/handlers/litan.handlers";
 import handleDeleteLitan from "./funcs/axios/handleDeleteLitan";
+import "./styles/card-page.css";
 
 type litanCardProps = {
   index: number;
@@ -24,7 +25,7 @@ const LitanCardComponent: React.FC<litanCardProps> = ({
   const [isHovered, setIsHovered] = React.useState(false);
 
   return (
-    <div className="card bg-dark" key={index}>
+    <div className="card" key={index}>
       <img
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -45,8 +46,12 @@ const LitanCardComponent: React.FC<litanCardProps> = ({
           Edit
         </span>
       )}
+      {/* # CARD BODY # */}
       <div className="card-body">
-        <h5 className="card-title text-center">{book.name}</h5>
+        <div className="">
+          {/* CARD TITLE */}
+          <h5 className="card-title text-center">{book.name}</h5>
+        </div>
         <div className="cardBtns d-flex justify-content-between">
           <button
             onClick={() =>
