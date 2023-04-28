@@ -47,6 +47,7 @@ const BooksRow: React.FC<BooksRowProps> = ({ books, setBooks }) => {
         <Marginalia
           analysis={curentAnalysis!}
           setContentVisibility={setContentVisibility}
+          setBooks={setBooks}
         />
       )}
 
