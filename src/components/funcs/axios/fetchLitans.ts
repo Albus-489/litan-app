@@ -6,4 +6,5 @@ export async function fetchLitans(
 ) {
   const response = await axios.get("http://localhost:8080/litans");
   setBooks(response.data);
+  // console.log(response.data);
 }
