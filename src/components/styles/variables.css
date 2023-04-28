@@ -1,0 +1,14 @@
+/* variables.css */
+
+:root {
+    /* Основные цвета */
+    --color-leather: #341d0c;
+    --color-cover: #D2B48C;
+    --color-text: #FFFFFF;
+  
+    /* Дополнительные цвета */
+    --color-accent: #A0522D;
+    --color-secondary: #CD853F;
+    --color-highlight: #FFEFD5;
+  }
+  

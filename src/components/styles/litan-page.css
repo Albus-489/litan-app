@@ -1,3 +1,5 @@
+@import './variables.css';
+
 .baBackLink{
     text-decoration: none;
     cursor: pointer;
@@ -11,7 +13,7 @@
 .volume{
     border: 3px solid rgba(170, 178, 170, 0.103);
     border-radius: 8px;
-    background-color: rgb(35, 36, 37);
+    background-color: rgba(11, 20, 24, 0.674);
 }
 
 .volHeader{
@@ -32,7 +34,7 @@
 }
 
 #mainSummary{
-    border-top: 1px solid wheat;
+    /* border-top: 1px solid wheat; */
     padding-top: 2%;
 }
 #simpleSummary{}

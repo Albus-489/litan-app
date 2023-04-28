@@ -1,0 +1,24 @@
+.volumeBody{
+    display: flex;
+    padding: 2%;
+    flex-direction: column;
+}
+
+.volumeUnderline{
+    border-top: 1px solid wheat;
+}
+
+.volumeContentBox{
+    background-color: rgba(29, 28, 57, 0.736);
+    margin-bottom: 2%;
+    padding: 1%;
+    border-radius: 5px;
+}
+
+.summaries{
+    cursor:auto;
+}
+
+.addSummaryIcon{
+    cursor: pointer;
+}
