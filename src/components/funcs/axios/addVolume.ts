@@ -4,6 +4,7 @@ export default async function addVolumeName(id: string, volumeName: string) {
   try {
     if (!volumeName) {
       alert("Please enter a volume name");
+      return;
     }
     const res = await axios.patch(
       `http://localhost:8080/litans/${id}/add-volume`,
