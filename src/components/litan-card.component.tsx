@@ -6,6 +6,7 @@ import handleDeleteLitan from "./funcs/axios/handleDeleteLitan";
 import "./styles/card-page.css";
 
 type litanCardProps = {
+  key: number;
   index: number;
   book: IBook;
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>;
