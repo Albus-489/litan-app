@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { IBook } from "./models/interfaces/IBook";
 import { Book } from "./models/Books";
-import Marginalia from "./litan-page.component";
 import ModalUpdateComponent from "./modal-update.component";
 import LitanCardComponent from "./litan-card.component";
+import LitanPageComponent from "./litan-page.component";
 
 type BooksRowProps = {
   books: IBook[];
@@ -24,6 +24,7 @@ const BooksRow: React.FC<BooksRowProps> = ({ books, setBooks }) => {
         <div className="books-row container">
           {books.map((book, index) => (
             <LitanCardComponent
+              key={index}
               index={index}
               book={book}
               setBooks={setBooks}
@@ -44,7 +45,7 @@ const BooksRow: React.FC<BooksRowProps> = ({ books, setBooks }) => {
           </div>
         </div>
       ) : (
-        <Marginalia
+        <LitanPageComponent
           analysis={curentAnalysis!}
           setContentVisibility={setContentVisibility}
           setBooks={setBooks}
