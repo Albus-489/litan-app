@@ -2,7 +2,13 @@
 
 .baBackLink{
     text-decoration: none;
+    color: rgb(84, 84, 246);
     cursor: pointer;
+    transition: color 0.4s ease;
+}
+
+.baBackLink:hover{
+    color: aliceblue;
 }
 
 #analysisContent{
@@ -20,7 +26,7 @@
     cursor: pointer;
 }
 
-.volName{
+.volName{;
     font-size: large;
     font-style: italic;
 }
@@ -43,6 +49,10 @@
     justify-content: flex-end;
     align-items: end;
     color: rgba(251, 248, 248, 0.442);
+}
+
+.romanNumber{
+    margin: 0 4.5% 0 4.5%;
 }
 
 #characters{
