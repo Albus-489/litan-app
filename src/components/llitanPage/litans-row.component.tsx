@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { IBook } from "./models/interfaces/IBook";
-import { Book } from "./models/Books";
-import ModalUpdateComponent from "./modal-update.component";
+import { IBook } from "../models/interfaces/IBook";
+import { Book } from "../models/Books";
+import ModalUpdateComponent from "../litanModals/modal-update.component";
 import LitanCardComponent from "./litan-card.component";
 import LitanPageComponent from "./litan-page.component";
 
@@ -11,7 +11,6 @@ type BooksRowProps = {
 };
 
 const BooksRow: React.FC<BooksRowProps> = ({ books, setBooks }) => {
-  // const [currentPage, setCurrentPage] = useState("Home");
   const [isContentVisible, setContentVisibility] = useState(true);
   const [curentAnalysis, setCurentAnalysis] = useState<IBook>();
   const [selectedBA, setSelectedBA] = React.useState<IBook>(

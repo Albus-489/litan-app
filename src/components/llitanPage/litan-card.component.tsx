@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { IBook } from "./models/interfaces/IBook";
+import { IBook } from "../models/interfaces/IBook";
 import React from "react";
-import { handleEdit, handleOpen } from "./funcs/handlers/litan.handlers";
-import handleDeleteLitan from "./funcs/axios/handleDeleteLitan";
-import "./styles/card-page.css";
+import { handleEdit, handleOpen } from "../funcs/handlers/litan.handlers";
+import handleDeleteLitan from "../funcs/axios/handleDeleteLitan";
+import "../styles/card-page.css";
 
 type litanCardProps = {
   key: number;
@@ -23,7 +23,7 @@ const LitanCardComponent: React.FC<litanCardProps> = ({
   setCurentAnalysis,
   setContentVisibility,
 }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className="card" key={index}>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { IBook } from "./models/interfaces/IBook";
 import "./styles/books-row.css";
-import BooksRow from "./litans-row.component";
-import ModalComponent from "./modal-add.component";
+import BooksRow from "./llitanPage/litans-row.component";
+import ModalComponent from "./litanModals/modal-add.component";
 import { fetchLitans } from "./funcs/axios/fetchLitans";
 
 const BookAnalysisMainPage = () => {

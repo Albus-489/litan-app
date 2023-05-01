@@ -1,12 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { IVolume } from "./models/interfaces/IVolume";
-import addNewSummary from "./funcs/axios/addSummary";
-import { IBook } from "./models/interfaces/IBook";
-import { ISummary } from "./models/interfaces/ISummary";
-import axios from "axios";
-import { isAbsolute } from "path";
-// const addSummaryIcon = require("./images/addSummaryIcon.jpg");
+import { IVolume } from "../models/interfaces/IVolume";
+import addNewSummary from "../funcs/axios/addSummary";
+import { IBook } from "../models/interfaces/IBook";
+import { ISummary } from "../models/interfaces/ISummary";
+import SummaryItem from "./summary-item.component";
 
 type SummaryComponentProps = {
   id: string;
@@ -25,6 +23,7 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
     volume.summary || []
   );
   const [isAddSummary, setIsAddSummary] = useState<boolean>(false);
+  const [isNotesVisible, setIsNotesVisible] = useState<boolean>(true);
   const [summaryIsOpen, setSummaryIsOpen] = useState<boolean>(false);
   const [textareaHeight, setTextareaHeight] = useState(0);
   const [newSummaryText, setNewSummaryText] = useState<string>("");
@@ -52,10 +51,7 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
   return (
     <div className="volumeBody">
       {/* SUMMARIES */}
-      <div
-        style={{ cursor: "pointer" }}
-        className="volumeContentBox text-center"
-      >
+      <div style={{ cursor: "pointer" }} className="volumeContentBox">
         <div
           className="hideShowArrow mb-3"
           style={{ fontSize: "140%" }}
@@ -73,22 +69,25 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
           {summaryIsOpen && (
             <div>
               <div>
-                {curentSummaries?.map((summary, index) => (
-                  <div key={index}>{summary.notes}</div>
-                ))}
+                {/* NOTES ARRAY HERE! */}
+                {isNotesVisible &&
+                  curentSummaries?.map((summary, index) => (
+                    <SummaryItem summary={summary} />
+                  ))}
               </div>
 
               {/* TEXTAREA INPUT FIELD */}
               {isAddSummary && (
-                <div className="form-floating mt-4">
+                <div className="col-10 offset-1 form-floating mt-4">
                   <textarea
-                    className="form-control bg-dark text-white mb-2 text-center"
+                    className="form-control text-white mb-2"
                     placeholder="Leave a comment here"
                     id="floatingTextarea2"
                     style={{
                       height: textareaHeight,
                       overflow: "hidden",
                       minHeight: "60px",
+                      backgroundColor: "rgb(15, 16, 29)",
                     }}
                     onInput={handleTextareaInput}
                   ></textarea>
@@ -102,7 +101,10 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
                     <div>
                       {" "}
                       <button
-                        onClick={() => handleCreateSummary()}
+                        onClick={() => {
+                          handleCreateSummary();
+                          setIsNotesVisible(true);
+                        }}
                         className="btn btn-primary"
                       >
                         +
@@ -114,6 +116,7 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
                         onClick={() => {
                           setIsAddSummary(false);
                           setNewSummaryText("");
+                          setIsNotesVisible(true);
                         }}
                         className="btn btn-danger"
                       >
@@ -122,9 +125,16 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
                     </div>
                   </div>
                 ) : (
-                  <span className="baBackLink" onClick={() => addSummary()}>
-                    + add +
-                  </span>
+                  <div className="baBackLink d-flex" style={{ flex: "center" }}>
+                    <span
+                      onClick={() => {
+                        addSummary();
+                        setIsNotesVisible(false);
+                      }}
+                    >
+                      + add +
+                    </span>
+                  </div>
                 )}
               </div>
             </div>

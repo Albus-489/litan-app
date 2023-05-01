@@ -5,6 +5,9 @@
     color: rgb(84, 84, 246);
     cursor: pointer;
     transition: color 0.4s ease;
+    display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .baBackLink:hover{
