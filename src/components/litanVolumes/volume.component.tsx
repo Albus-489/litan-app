@@ -41,7 +41,7 @@ const VolumeComponent: React.FC<VolumeProps> = ({
           className="col-12 p-3 d-flex justify-content-between align-items-center volHeader"
         >
           <div className="" style={{ fontSize: "150%" }}>
-            <span>{convertToRoman(ind + 1)}</span>
+            <span style={{ display: "none" }}>{convertToRoman(ind + 1)}</span>
           </div>
           <div className="volName">{curentVolume.name}</div>
           <div className="hideShowArrow">{isOpen ? "▲" : "▼"}</div>
