@@ -3,6 +3,7 @@ import { IBook } from "../models/interfaces/IBook";
 import "../styles/litan-page.css";
 import VolumeComponent from "../litanVolumes/volume.component";
 import LitanPageBtnsComponent from "./litan-page-btns";
+const changeOrderIcon = require("../images/changeOrderIcon.png");
 
 type litanPageProps = {
   setContentVisibility: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +23,11 @@ const LitanPageComponent: React.FC<litanPageProps> = ({
   const [isAddNew, setIsAddNew] = useState<boolean>(false);
   const [newVolumeName, setVolumeName] = useState<string>("");
   const [curentLitan, setCurentLitan] = useState<IBook>(analysis);
+  const [isReversed, setIsReversed] = useState<boolean>(false);
+
+  const handleReversed = () => {
+    setIsReversed(!isReversed);
+  };
 
   return (
     <div className="litanpage mt-5">
@@ -40,6 +46,29 @@ const LitanPageComponent: React.FC<litanPageProps> = ({
             Analysis of "{analysis.name}" {analysis.author}
           </span>
         </h3>
+
+        {/* CHANGE ORDER ICON */}
+        <div className="d-flex justify-content-end col-11">
+          <img
+            onClick={handleReversed}
+            style={{ width: "2.5%", cursor: "pointer", userSelect: "none" }}
+            src={changeOrderIcon}
+            alt="changeOrderIcon"
+          />
+        </div>
+        <div id="volumes" className="row justify-content-center mt-4">
+          {isReversed && (
+            <LitanPageBtnsComponent
+              analysis={analysis}
+              newVolumeName={newVolumeName}
+              setBooks={setBooks}
+              setCurentLitan={setCurentLitan}
+              setVolumeName={setVolumeName}
+              setIsAddNew={setIsAddNew}
+              isAddNew={isAddNew}
+            />
+          )}
+        </div>
 
         <div id="analysisContent">
           <div id="mainSummary">
@@ -60,7 +89,7 @@ const LitanPageComponent: React.FC<litanPageProps> = ({
                 </div>
               ))}
 
-            {isAddNew && (
+            {!isReversed && (
               <LitanPageBtnsComponent
                 analysis={analysis}
                 newVolumeName={newVolumeName}
@@ -68,16 +97,9 @@ const LitanPageComponent: React.FC<litanPageProps> = ({
                 setCurentLitan={setCurentLitan}
                 setVolumeName={setVolumeName}
                 setIsAddNew={setIsAddNew}
+                isAddNew={isAddNew}
               />
             )}
-            <div className="addVolume mb-5 text-center">
-              <span
-                className="baBackLink col-2 offset-5"
-                onClick={() => setIsAddNew(true)}
-              >
-                + new +
-              </span>
-            </div>
           </div>
         </div>
       </div>

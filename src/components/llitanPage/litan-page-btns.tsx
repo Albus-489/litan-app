@@ -9,6 +9,7 @@ type LitanPageBtnsProps = {
   setCurentLitan: React.Dispatch<React.SetStateAction<IBook>>;
   setVolumeName: React.Dispatch<React.SetStateAction<string>>;
   setIsAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  isAddNew: boolean;
 };
 
 const LitanPageBtnsComponent: React.FC<LitanPageBtnsProps> = ({
@@ -18,47 +19,60 @@ const LitanPageBtnsComponent: React.FC<LitanPageBtnsProps> = ({
   setCurentLitan,
   setVolumeName,
   setIsAddNew,
+  isAddNew,
 }) => {
   return (
-    <div className="col-4">
-      <div className="input-group mb-3">
-        <button
-          onClick={() =>
-            handleAdd(
-              analysis._id!,
-              newVolumeName,
-              setBooks,
-              setCurentLitan,
-              setIsAddNew
-            )
-          }
-          className="btn btn-outline-primary"
-          type="button"
-          id="button-addon2"
+    <>
+      {isAddNew && (
+        <div className="col-4">
+          <div className="input-group mb-3">
+            <button
+              onClick={() => {
+                setIsAddNew(false);
+                setVolumeName("");
+              }}
+              className="btn btn-outline-danger"
+              type="button"
+              id="button-addon2"
+            >
+              ×
+            </button>
+            <input
+              type="text"
+              className="form-control bg-dark text-white text-center"
+              placeholder="Volume name"
+              aria-label="Volume name"
+              aria-describedby="button-addon2"
+              onChange={(e) => setVolumeName(e.target.value)}
+            />
+            <button
+              onClick={() =>
+                handleAdd(
+                  analysis._id!,
+                  newVolumeName,
+                  setBooks,
+                  setCurentLitan,
+                  setIsAddNew
+                )
+              }
+              className="btn btn-outline-primary"
+              type="button"
+              id="button-addon2"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      )}
+      <div className="addVolume mb-2 text-center">
+        <span
+          className="baBackLink col-2 offset-5"
+          onClick={() => setIsAddNew(true)}
         >
-          +
-        </button>
-        <input
-          type="text"
-          className="form-control bg-dark text-white text-center"
-          placeholder="Volume name"
-          aria-label="Volume name"
-          aria-describedby="button-addon2"
-          onChange={(e) => setVolumeName(e.target.value)}
-        />
-        <button
-          onClick={() => {
-            setIsAddNew(false);
-            setVolumeName("");
-          }}
-          className="btn btn-outline-danger"
-          type="button"
-          id="button-addon2"
-        >
-          ×
-        </button>
+          + new +
+        </span>
       </div>
-    </div>
+    </>
   );
 };
 
