@@ -9,14 +9,14 @@ import convertToRoman from "../funcs/convertToRoman";
 type VolumeProps = {
   id: string;
   volume: IVolume;
-  ind: number;
+  volIndex: number;
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>;
 };
 
 const VolumeComponent: React.FC<VolumeProps> = ({
   volume,
   id,
-  ind,
+  volIndex,
   setBooks,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,8 +26,8 @@ const VolumeComponent: React.FC<VolumeProps> = ({
 
   async function fetchVolume() {
     const res = await axios.get(`http://localhost:8080/litans/${id}`);
-    setCurentVolume(res.data.volumes[ind]);
-    console.log(res);
+    setCurentVolume(res.data.volumes[volIndex]);
+    // console.log(res);
   }
 
   return (
@@ -41,7 +41,9 @@ const VolumeComponent: React.FC<VolumeProps> = ({
           className="col-12 p-3 d-flex justify-content-between align-items-center volHeader"
         >
           <div className="" style={{ fontSize: "150%" }}>
-            <span style={{ display: "none" }}>{convertToRoman(ind + 1)}</span>
+            <span style={{ display: "none" }}>
+              {convertToRoman(volIndex + 1)}
+            </span>
           </div>
           <div className="volName">{curentVolume.name}</div>
           <div className="hideShowArrow">{isOpen ? "▲" : "▼"}</div>
@@ -51,7 +53,7 @@ const VolumeComponent: React.FC<VolumeProps> = ({
             {/* SUMARY */}
             <SummaryComponent
               id={id}
-              ind={ind}
+              volIndex={volIndex}
               volume={curentVolume}
               setBooks={setBooks}
             />

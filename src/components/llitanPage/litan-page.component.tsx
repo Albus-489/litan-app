@@ -3,6 +3,7 @@ import { IBook } from "../models/interfaces/IBook";
 import "../styles/litan-page.css";
 import VolumeComponent from "../litanVolumes/volume.component";
 import LitanPageBtnsComponent from "./litan-page-btns";
+import { IVolume } from "../models/interfaces/IVolume";
 const changeOrderIcon = require("../images/changeOrderIcon.png");
 
 type litanPageProps = {
@@ -23,10 +24,19 @@ const LitanPageComponent: React.FC<litanPageProps> = ({
   const [isAddNew, setIsAddNew] = useState<boolean>(false);
   const [newVolumeName, setVolumeName] = useState<string>("");
   const [curentLitan, setCurentLitan] = useState<IBook>(analysis);
+  const [curentVolumes, setCurentVolumes] = useState<IVolume[]>(
+    analysis.volumes.reverse()
+  );
   const [isReversed, setIsReversed] = useState<boolean>(false);
 
   const handleReversed = () => {
     setIsReversed(!isReversed);
+    setCurentLitan((prevLitan) => {
+      const reversedVolumes = prevLitan.volumes.slice().reverse();
+      return { ...prevLitan, volumes: reversedVolumes };
+    });
+
+    console.log(curentLitan);
   };
 
   return (
@@ -50,7 +60,7 @@ const LitanPageComponent: React.FC<litanPageProps> = ({
         {/* CHANGE ORDER ICON */}
         <div className="d-flex justify-content-end col-11">
           <img
-            onClick={handleReversed}
+            onClick={() => handleReversed()}
             style={{ width: "2.5%", cursor: "pointer", userSelect: "none" }}
             src={changeOrderIcon}
             alt="changeOrderIcon"
@@ -77,17 +87,16 @@ const LitanPageComponent: React.FC<litanPageProps> = ({
             ))}
           </div>
           <div id="volumes" className="row justify-content-center mt-4">
-            {curentLitan &&
-              curentLitan.volumes.map((volume, index) => (
-                <div key={index}>
-                  <VolumeComponent
-                    id={analysis._id!}
-                    volume={volume}
-                    ind={index}
-                    setBooks={setBooks}
-                  />
-                </div>
-              ))}
+            {curentVolumes.map((volume, index) => (
+              <div key={index}>
+                <VolumeComponent
+                  id={analysis._id!}
+                  volume={volume}
+                  volIndex={index}
+                  setBooks={setBooks}
+                />
+              </div>
+            ))}
 
             {!isReversed && (
               <LitanPageBtnsComponent

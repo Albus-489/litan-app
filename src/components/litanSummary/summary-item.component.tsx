@@ -1,27 +1,51 @@
 import { format } from "date-fns";
 import { ISummary } from "../models/interfaces/ISummary";
 import React from "react";
+import axios from "axios";
+const trashCanIcon = require("../images/trash-can.png");
 
 type SummaryItemProps = {
   summary: ISummary;
+  sumIndex: number;
+  volIndex: number;
+  litanId: string;
 };
 
-const SummaryItem: React.FC<SummaryItemProps> = ({ summary }) => {
+const SummaryItem: React.FC<SummaryItemProps> = ({
+  summary,
+  litanId,
+  volIndex,
+  sumIndex,
+}) => {
   const formattedDate = format(
     new Date(summary.creationDate),
     "HH:mm (dd/MM/yy)"
   );
+
+  const handleDeleteSummary = async () => {
+    const res = await axios.patch(
+      `http://localhost:8080/litans/${litanId}/delete-summary`,
+      { volIndex: volIndex, sumIndex: sumIndex }
+    );
+
+    console.log(res.data);
+  };
 
   return (
     <div
       className="summaryBox p-2 mb-2"
       style={{ backgroundColor: "black", borderRadius: "5px" }}
     >
-      <div
-        style={{ display: "flex", justifyContent: "start", color: "wheat" }}
-        className=""
-      >
-        {formattedDate}
+      <div className="d-flex justify-content-between mt-1">
+        <div
+          style={{ display: "flex", justifyContent: "start", color: "wheat" }}
+          className=""
+        >
+          {formattedDate}
+        </div>
+        <div>
+          <button className="btn btn-sm btn-outline-primary">Edit</button>
+        </div>
       </div>
       <div
         style={{
@@ -30,10 +54,21 @@ const SummaryItem: React.FC<SummaryItemProps> = ({ summary }) => {
           display: "flex",
           justifyContent: "start",
           wordBreak: "break-word",
+          whiteSpace: "pre-wrap",
         }}
         className="mb-4 mt-1"
       >
         {summary.notes}
+      </div>
+      <div>
+        <div className="trashIconBox d-flex justify-content-end mb-1">
+          <button
+            onClick={() => handleDeleteSummary()}
+            className="btn btn-sm btn-outline-danger"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );

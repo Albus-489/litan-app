@@ -8,7 +8,7 @@ import SummaryItem from "./summary-item.component";
 
 type SummaryComponentProps = {
   id: string;
-  ind: number;
+  volIndex: number;
   volume: IVolume;
   setBooks: React.Dispatch<React.SetStateAction<IBook[]>>;
 };
@@ -16,7 +16,7 @@ type SummaryComponentProps = {
 const SummaryComponent: React.FC<SummaryComponentProps> = ({
   volume,
   id,
-  ind,
+  volIndex,
   setBooks,
 }) => {
   const [curentSummaries, setCurentSummaries] = useState<ISummary[]>(
@@ -33,17 +33,24 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
   };
 
   const handleTextareaInput = (event: any) => {
+    const inputValue = event.target.value;
+    const formattedValue = inputValue.replace(/\r?\n/g, "\n");
     const target = event.target;
     target.style.height = "auto"; // Height cancelation
     target.style.height = `${target.scrollHeight}px`; // Set height with content height
     setTextareaHeight(target.scrollHeight); // Update state textareaHeight
-    setNewSummaryText(target.value);
+    setNewSummaryText(formattedValue);
   };
 
   async function handleCreateSummary() {
-    const res: IBook = await addNewSummary(id, newSummaryText, ind, setBooks);
+    const res: IBook = await addNewSummary(
+      id,
+      newSummaryText,
+      volIndex,
+      setBooks
+    );
     if (newSummaryText) {
-      await setCurentSummaries(res.volumes[ind].summary!);
+      await setCurentSummaries(res.volumes[volIndex].summary!);
       await setIsAddSummary(false);
     }
   }
@@ -72,7 +79,14 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
                 {/* NOTES ARRAY HERE! */}
                 {isNotesVisible &&
                   curentSummaries?.map((summary, index) => (
-                    <SummaryItem summary={summary} />
+                    <div key={index}>
+                      <SummaryItem
+                        summary={summary}
+                        sumIndex={index}
+                        volIndex={volIndex}
+                        litanId={id}
+                      />
+                    </div>
                   ))}
               </div>
 
