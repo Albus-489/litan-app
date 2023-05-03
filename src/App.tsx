@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import BookAnalysisMainPage from "./components/main.component";
+import BookAnalysisMainPage from "./components/mainPage/main.component";
 
 function App() {
   return (
