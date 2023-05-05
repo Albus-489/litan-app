@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { IVolume } from "../models/interfaces/IVolume";
-import addNewSummary from "../funcs/axios/addSummary";
+import addNewSummary from "../funcs/axios/addNewSummary";
 import { IBook } from "../models/interfaces/IBook";
 import { ISummary } from "../models/interfaces/ISummary";
 import SummaryItem from "./summary-item.component";
@@ -60,7 +60,7 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
       {/* SUMMARIES */}
       <div style={{ cursor: "pointer" }} className="volumeContentBox">
         <div
-          className="hideShowArrow mb-3"
+          className="hideShowArrow mb-1"
           style={{ fontSize: "140%" }}
           onClick={() => setSummaryIsOpen(!summaryIsOpen)}
         >
@@ -85,6 +85,7 @@ const SummaryComponent: React.FC<SummaryComponentProps> = ({
                         sumIndex={index}
                         volIndex={volIndex}
                         litanId={id}
+                        setCurentSummaries={setCurentSummaries}
                       />
                     </div>
                   ))}
