@@ -4,6 +4,8 @@ import "../styles/litan-page.css";
 import VolumeComponent from "../litanVolumes/volume.component";
 import LitanPageBtnsComponent from "./litan-page-btns";
 import { IVolume } from "../models/interfaces/IVolume";
+import SummaryComponent from "../litanSummary/summary.component";
+import MainSummaryComponent from "../litanSummary/main-summary.component";
 const changeOrderIcon = require("../images/changeOrderIcon.png");
 
 type litanPageProps = {
@@ -81,10 +83,12 @@ const LitanPageComponent: React.FC<litanPageProps> = ({
         </div>
 
         <div id="analysisContent">
-          <div id="mainSummary">
-            {analysis.summary.map((summary, index) => (
-              <p key={index}>{summary.notes}</p>
-            ))}
+          <div id="mainSummary row justify-content-center">
+            <MainSummaryComponent
+              id={analysis._id!}
+              litan={analysis}
+              setBooks={setBooks}
+            />
           </div>
           <div id="volumes" className="row justify-content-center mt-4">
             {curentVolumes.map((volume, index) => (
