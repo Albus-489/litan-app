@@ -5,6 +5,8 @@ import SummaryComponent from "../litanSummary/summary.component";
 import { IBook } from "../models/interfaces/IBook";
 import axios from "axios";
 import convertToRoman from "../funcs/convertToRoman";
+import CharactersComponent from "../litanCharacters/characters.component";
+import LocationsComponent from "../litanLocations/locations.cpmponent";
 
 type VolumeProps = {
   id: string;
@@ -55,6 +57,20 @@ const VolumeComponent: React.FC<VolumeProps> = ({
               id={id}
               volIndex={volIndex}
               volume={curentVolume}
+              setBooks={setBooks}
+            />
+
+            <CharactersComponent
+              id={id}
+              volIndex={0}
+              volume={volume}
+              setBooks={setBooks}
+            />
+
+            <LocationsComponent
+              id={id}
+              volIndex={0}
+              volume={volume}
               setBooks={setBooks}
             />
           </>
