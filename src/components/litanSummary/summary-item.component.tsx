@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { ISummary } from "../models/interfaces/ISummary";
 import React from "react";
 import axios from "axios";
+import getLitanById from "../funcs/axios/getLitanById";
 const trashCanIcon = require("../images/trash-can.png");
 
 type SummaryItemProps = {
@@ -9,6 +10,7 @@ type SummaryItemProps = {
   sumIndex: number;
   volIndex: number;
   litanId: string;
+  setCurentSummaries: React.Dispatch<React.SetStateAction<ISummary[]>>;
 };
 
 const SummaryItem: React.FC<SummaryItemProps> = ({
@@ -16,6 +18,7 @@ const SummaryItem: React.FC<SummaryItemProps> = ({
   litanId,
   volIndex,
   sumIndex,
+  setCurentSummaries,
 }) => {
   const formattedDate = format(
     new Date(summary.creationDate),
@@ -28,7 +31,12 @@ const SummaryItem: React.FC<SummaryItemProps> = ({
       { volIndex: volIndex, sumIndex: sumIndex }
     );
 
-    console.log(res.data);
+    const litan = await getLitanById(litanId);
+    if (litan.volumes[volIndex].summary) {
+      setCurentSummaries(litan.volumes[volIndex].summary!);
+    } else {
+      setCurentSummaries([]);
+    }
   };
 
   return (
